@@ -1,4 +1,7 @@
 import Image from 'next/image'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 export default function Home() {
   return (
@@ -107,3 +110,10 @@ export default function Home() {
     </main>
   )
 }
+
+ReactDOM.render(
+  <Router>
+    <Home /> 
+  </Router>,
+  document.getElementById('root')
+);
