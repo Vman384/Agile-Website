@@ -1,4 +1,3 @@
-'use client'
 import IPageProps from '../../../interfaces/page';
 import { Link } from 'react-router-dom';
 import { useState } from "react";
@@ -10,7 +9,7 @@ import { auth } from '../../../config/firebaseSetup'
 
 
 
-const RegisterPage: React.FunctionComponent<IPageProps> = proops => {
+const RegisterPage: React.FunctionComponent<IPageProps> = props => {
     const [registering, setRegistering] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');

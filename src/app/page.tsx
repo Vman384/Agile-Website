@@ -111,9 +111,3 @@ export default function Home() {
   )
 }
 
-ReactDOM.render(
-  <Router>
-    <Home /> 
-  </Router>,
-  document.getElementById('root')
-);
