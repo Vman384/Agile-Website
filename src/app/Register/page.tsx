@@ -93,7 +93,7 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
           Sign Up
       </Button>
       <small>
-      <BrowserRouter><p className='m-1 text-center'>Already have an account? <Link href="/">Login.</Link></p></BrowserRouter>
+      <BrowserRouter><p className='m-1 text-center'>Already have an account? <Link href="/Login">Login.</Link></p></BrowserRouter>
       </small>
   </AuthContainer>
 );
