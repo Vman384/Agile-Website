@@ -1,12 +1,14 @@
 "use client"
 import IPageProps from '../../../interfaces/page';
-import { Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Link from 'next/link'
 import { useState } from "react";
 import logging from '../../../config/logging';
 import {  createUserWithEmailAndPassword} from "firebase/auth";
 import { auth } from '../../../config/firebaseSetup'
 import { Button, FormGroup, Input } from 'reactstrap';
 import AuthContainer from '../../../components/AuthContainer';
+
 
 
 
@@ -45,7 +47,7 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
             }
 
             setRegistering(false);
-        })
+        });
     }
 
     return (
@@ -83,7 +85,7 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
           />
       </FormGroup>
       <Button
-        //   disabled={registering}
+          disabled={registering}
           color="success"
           block
           onClick={() =>signUpWithEmailAndPassword()}
@@ -91,10 +93,10 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
           Sign Up
       </Button>
       <small>
-          {/* <p className='m-1 text-center'>Already have an account? <Link to="/login">Login.</Link></p> */}
+      <BrowserRouter><p className='m-1 text-center'>Already have an account? <Link href="/">Login.</Link></p></BrowserRouter>
       </small>
   </AuthContainer>
 );
 }
 
-export default RegisterPage
+export default RegisterPage;

@@ -1,5 +1,6 @@
 import IRoute from "../interfaces/routes";
 import RegisterPage from "../src/app/Register/page";
+import Home from "@/app/page";
 
 
 const routes: IRoute[] = [
@@ -8,6 +9,13 @@ const routes: IRoute[] = [
         exact: true,
         component: RegisterPage,
         name: 'Register Page',
+        protected: false
+    },
+    {
+        path: '/',
+        exact: true,
+        component: Home,
+        name: 'Home',
         protected: false
     },
     
