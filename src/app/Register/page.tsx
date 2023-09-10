@@ -1,10 +1,13 @@
+"use client"
 import IPageProps from '../../../interfaces/page';
 import { Link } from 'react-router-dom';
 import { useState } from "react";
 import logging from '../../../config/logging';
-import { initializeApp } from 'firebase/app'
 import {  createUserWithEmailAndPassword} from "firebase/auth";
 import { auth } from '../../../config/firebaseSetup'
+import { Button, FormGroup, Input } from 'reactstrap';
+import AuthContainer from '../../../components/AuthContainer';
+
 
 
 
@@ -46,53 +49,51 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
     }
 
     return (
-        <div className="Register">
-        <h2>Sign Up</h2>
-        <div className="form-group">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Email Address"
-            onChange={(event) => setEmail(event.target.value)}
-            value={email}
+      <AuthContainer header="Register">
+      <FormGroup>
+          <Input 
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email Address"
+              onChange={event => setEmail(event.target.value)}
+              value={email}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Enter Password</label>
-          <input
-            autoComplete="new-password"
-            type="password"
-            id="password"
-            placeholder="Enter Password"
-            onChange={(event) => setPassword(event.target.value)}
-            value={password}
+      </FormGroup>
+      <FormGroup>
+          <Input 
+              autoComplete="new-password"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter Password"
+              onChange={event => setPassword(event.target.value)}
+              value={password}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirm">Confirm Password</label>
-          <input
-            autoComplete="new-password"
-            type="password"
-            id="confirm"
-            placeholder="Confirm Password"
-            onChange={(event) => setConfirm(event.target.value)}
-            value={confirm}
+      </FormGroup>
+      <FormGroup>
+          <Input 
+              autoComplete="new-password"
+              type="password"
+              name="confirm"
+              id="confirm"
+              placeholder="Confirm Password"
+              onChange={event => setConfirm(event.target.value)}
+              value={confirm}
           />
-        </div>
-        <button
-          disabled={registering}
-          onClick={signUpWithEmailAndPassword}
-        >
+      </FormGroup>
+      <Button
+        //   disabled={registering}
+          color="success"
+          block
+          onClick={() =>signUpWithEmailAndPassword()}
+      >
           Sign Up
-        </button>
-        <small>
-          <p className="text-center">
-            Already have an account? <Link to="/Login">Login.</Link>
-          </p>
-        </small>
-        {error && <p className="error-text">{error}</p>}
-      </div>
+      </Button>
+      <small>
+          {/* <p className='m-1 text-center'>Already have an account? <Link to="/login">Login.</Link></p> */}
+      </small>
+  </AuthContainer>
 );
 }
 
