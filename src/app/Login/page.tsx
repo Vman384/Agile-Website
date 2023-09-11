@@ -24,6 +24,7 @@ const Login: React.FunctionComponent<IPageProps> = props => {
             // Signed in 
             const user = userCredential.user;
             console.log("success")
+            window.location.href="/Menu"
             
           })
           .catch((error) => {
