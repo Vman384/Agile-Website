@@ -7,8 +7,9 @@ import ErrorText from '../../../components/ErrorText';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import logging from '../../../config/logging';
 import IPageProps from '../../../interfaces/page';
-import firebase from 'firebase/app';
 import Link from 'next/link'
+import { auth } from '../../../config/firebaseSetup'
+
 
 const Login: React.FunctionComponent<IPageProps> = props => {
     const [email, setEmail] = useState<string>('');
@@ -18,7 +19,6 @@ const Login: React.FunctionComponent<IPageProps> = props => {
 
     const signIn = () => {
         if (error !== '') setError('');
-        const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Signed in 
