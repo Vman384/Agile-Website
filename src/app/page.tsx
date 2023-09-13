@@ -1,6 +1,5 @@
 "use client"
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import IPageProps from '../../interfaces/page';
 import Link from 'next/link'
 
@@ -9,7 +8,6 @@ const Landing: React.FunctionComponent<IPageProps> = props => {
     return (
       <div>
         <div className='my-20 flex text-5xl font-extrabold justify-center items-center'>Sunday.com</div>
-        <BrowserRouter>
           <Link href="/Login">
             <div className="flex justify-center mx-auto w-1/2 ">
               <button
@@ -19,7 +17,6 @@ const Landing: React.FunctionComponent<IPageProps> = props => {
                 </button>
             </div>
           </Link>
-        </BrowserRouter>
       </div>
     )
   
