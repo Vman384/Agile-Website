@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, useParams, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
-import AuthRoute from '../../components/AuthRoute';
 import { auth } from '../../config/firebaseSetup';
 import logging from '../../config/logging';
 import Landing from './page'
