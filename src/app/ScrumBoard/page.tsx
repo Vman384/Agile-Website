@@ -20,17 +20,33 @@ const ScrumBoard: React.FunctionComponent<IPageProps> = props => {
                         
                     }}></TaskCard>
                 </div>
-                <div className="flex justify-center border-r-2 border-slate-300">
-                    <h2 className="text-3xl">To-Do</h2>
+                <div className="grid grid-cols-1 border-r-2 border-slate-300">
+                    <h2 className="text-3xl w-max m-auto">To-Do</h2>
+                    <TaskCard card ={{
+                        text: "Task",
+                        
+                    }}></TaskCard>
                 </div>
-                <div className="flex justify-center border-r-2 border-slate-300">
-                    <h2 className="text-3xl">In Progress</h2>
+                <div className="grid grid-cols-1 border-r-2 border-slate-300">
+                    <h2 className="text-3xl w-max m-auto">In Progress</h2>
+                    <TaskCard card ={{
+                        text: "Task",
+                        
+                    }}></TaskCard>
                 </div>
-                <div className="flex justify-center border-r-2 border-slate-300">
-                    <h2 className="text-3xl">Review</h2>
+                <div className="grid grid-cols-1 border-r-2 border-slate-300">
+                    <h2 className="text-3xl w-max m-auto">Review</h2>
+                    <TaskCard card ={{
+                        text: "Task",
+                        
+                    }}></TaskCard>
                 </div>
-                <div className="flex justify-center">
-                    <h2 className="text-3xl">Done</h2>
+                <div className="grid grid-cols-1r">
+                    <h2 className="text-3xl w-max m-auto">Done</h2>
+                    <TaskCard card ={{
+                        text: "Task",
+                        
+                    }}></TaskCard>
                 </div>
             </div>
         </div>
