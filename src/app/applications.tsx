@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, useParams, BrowserRouter, Routes, Navigate } from 'react-router-dom';
+import { Route, useParams, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 import AuthRoute from '../../components/AuthRoute';
 import { auth } from '../../config/firebaseSetup';
