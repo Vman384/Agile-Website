@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export default function CardButton({ card }) {
+export default function CardButton({
+    card,
+}: {
+    card: { id: number; text: string; description: string };
+}) {
     const linkAddress = "/" + card.text.split(" ").join("");
 
     return (

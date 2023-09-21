@@ -1,4 +1,4 @@
-import Cardlist from "./components/Cardlist";
+import CardList from "./components/CardList";
 
 export default function Menu() {
     const cards = [
@@ -21,7 +21,7 @@ export default function Menu() {
             <div className="my-20 flex text-5xl font-extrabold justify-center items-center">
                 Sunday.com
             </div>
-            <Cardlist cards={cards} />
+            <CardList cards={cards} />
         </div>
     );
 }

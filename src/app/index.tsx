@@ -1,5 +1,5 @@
 import React from "react";
-import Application from "./applications";
+import Application from "./application";
 import reportWebVitals from "./reportWebvitals";
 
 export default function Home() {

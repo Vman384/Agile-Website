@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
-import logging from "../../../config/logging";
+
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../config/firebaseSetup";
+import Link from "next/link";
+import { useState } from "react";
 import { Button, FormGroup, Input } from "reactstrap";
 import AuthContainer from "../../../components/AuthContainer";
-import Link from "next/link";
+import { auth } from "../../../config/firebaseSetup";
+import logging from "../../../config/logging";
 
 export default function Register() {
     const [registering, setRegistering] = useState<boolean>(false);

@@ -1,6 +1,5 @@
-"use client";
-import { Card } from "react-bootstrap";
-import IPageProps from "../../../interfaces/page";
+// "use client";
+
 import TaskCard from "../ScrumBoard/components/TaskCard";
 
 export default function ScrumBoard() {
@@ -14,7 +13,9 @@ export default function ScrumBoard() {
                     <h2 className="text-3xl w-max m-auto">Backlog</h2>
                     <TaskCard
                         card={{
+                            id: 1,
                             text: "Task",
+                            description: "Details",
                         }}
                     ></TaskCard>
                 </div>
@@ -22,7 +23,9 @@ export default function ScrumBoard() {
                     <h2 className="text-3xl w-max m-auto">To-Do</h2>
                     <TaskCard
                         card={{
+                            id: 1,
                             text: "Task",
+                            description: "Details",
                         }}
                     ></TaskCard>
                 </div>
@@ -30,7 +33,9 @@ export default function ScrumBoard() {
                     <h2 className="text-3xl w-max m-auto">In Progress</h2>
                     <TaskCard
                         card={{
+                            id: 1,
                             text: "Task",
+                            description: "Details",
                         }}
                     ></TaskCard>
                 </div>
@@ -38,7 +43,9 @@ export default function ScrumBoard() {
                     <h2 className="text-3xl w-max m-auto">Review</h2>
                     <TaskCard
                         card={{
+                            id: 1,
                             text: "Task",
+                            description: "Details",
                         }}
                     ></TaskCard>
                 </div>
@@ -46,7 +53,9 @@ export default function ScrumBoard() {
                     <h2 className="text-3xl w-max m-auto">Done</h2>
                     <TaskCard
                         card={{
+                            id: 1,
                             text: "Task",
+                            description: "Details",
                         }}
                     ></TaskCard>
                 </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
+/// Landing page (root) of the application
 export default function Landing() {
     return (
         <div>
