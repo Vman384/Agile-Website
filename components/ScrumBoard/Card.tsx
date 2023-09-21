@@ -1,4 +1,4 @@
-import CardButton from "../../Menu/components/CardButton";
+import CardButton from "../Menu/CardButton";
 
 export default function Card({
     card,

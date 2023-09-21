@@ -1,4 +1,4 @@
-import CardList from "./components/CardList";
+import CardList from "../../../components/Menu/CardList";
 
 export default function Menu() {
     const cards = [

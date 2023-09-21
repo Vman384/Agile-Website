@@ -1,6 +1,6 @@
 // "use client";
 
-import TaskCard from "../ScrumBoard/components/TaskCard";
+import TaskCard from "../../../components/ScrumBoard/TaskCard";
 
 export default function ScrumBoard() {
     return (
