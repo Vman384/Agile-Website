@@ -89,7 +89,7 @@ export default function Register() {
                         disabled={registering}
                         color="success"
                         block
-                        onClick={() => signUpWithEmailAndPassword()}
+                        onClick={signUpWithEmailAndPassword}
                     >
                         Sign Up
                     </Button>
