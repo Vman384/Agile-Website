@@ -9,8 +9,8 @@ export default function Landing() {
                 <Image
                     priority
                     src="/named-logo-dark-text.png"
-                    height={144}
-                    width={665}
+                    height={168}
+                    width={750}
                     alt="Sunday.com logo"
                 />
             </div>

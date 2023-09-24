@@ -1,4 +1,4 @@
-import "./App.css";
+import "../../../styles/product-backlog";
 
 export default function ProductBacklog() {
     const data = [
