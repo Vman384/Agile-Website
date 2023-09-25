@@ -1,23 +1,28 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { IAuthRouteProps } from "../../components/AuthRoute";
 
-const inter = Inter({ subsets: ['latin'] })
+import "../../styles/globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Sunday.Com',
-  description: "You're daily project tool",
-}
+    title: "sunday.com",
+    description: "You're daily project tool",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        {children}</body>
-    </html>
-  )
+export default function RootLayout({ children }: IAuthRouteProps) {
+    return (
+        <html lang="en">
+            <head>
+                <link
+                    rel="icon"
+                    href="/logo.png"
+                    type="image/x-icon"
+                    sizes="16x16"
+                />
+            </head>
+            <body className={inter.className}>{children}</body>
+        </html>
+    );
 }
