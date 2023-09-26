@@ -5,6 +5,7 @@ import BacklogTask from "../../../components/ProductBacklog/BacklogTask"
 import { useState } from "react";
 import React from "react";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd"
+import { stat } from "fs";
 
 
 const startingTasks = [
@@ -13,7 +14,7 @@ const startingTasks = [
         date: "22/04/2023",
         name: "John",
         role: "Dev",
-        info: "Be able to move tasks from product backlog to the scrum bofasdfadfdsfa dfasdfad fsdf adsf da fadfas ard",
+        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat at mauris vel volutpat. Duis viverra diam turpis, a aliquam justo maximus ac. ",
         priority: "2",
         sprint: "1",
         status: "In progress",
@@ -23,7 +24,7 @@ const startingTasks = [
         date: "23/04/2023",
         name: "Harry",
         role: "SM",
-        info: "be able to add and remove columns on my scrum board",
+        info: "Donec ac sagittis velit. Sed sit amet rhoncus nisl. Pellentesque posuere ultrices quam ut facilisis. Vivamus sagittis non ligula ut tempor.",
         priority: "1",
         sprint: "1",
         status: "Started",
@@ -33,7 +34,7 @@ const startingTasks = [
         date: "26/04/2023",
         name: "Josh",
         role: "PO",
-        info: "be able to assign one person to a task at a time",
+        info: "Sed maximus maximus diam at facilisis. Sed egestas mauris eu velit blandit venenatis.",
         priority: "3",
         sprint: "2",
         status: "Done",
@@ -43,6 +44,22 @@ const startingTasks = [
 
 export default function ProductBacklog() {
     
+    function taskChanged(id : string, date : string, name : string, role : string, info : string, priority : string, sprint : string, status : string) {
+        const indexOfTask = taskList.findIndex(task => task.id === id)
+        if (!(taskList[indexOfTask].id == id &&
+            taskList[indexOfTask].date == date &&
+            taskList[indexOfTask].name == name &&
+            taskList[indexOfTask].role == role &&
+            taskList[indexOfTask].info == info &&
+            taskList[indexOfTask].priority == priority &&
+            taskList[indexOfTask].sprint == sprint &&
+            taskList[indexOfTask].status == status)) {
+            taskList[indexOfTask] = {id: id, date: date, name: name, role: role, info: info, priority: priority, sprint: sprint, status: status}
+            console.log("changed")
+            console.log(taskList)
+        }
+    }
+
 
     const [taskList, setTaskList] = useState(startingTasks);
     
@@ -87,6 +104,7 @@ export default function ProductBacklog() {
                                 <Draggable draggableId = {task.id} key = {task.id} index = {index}>
                                     {(provided) => (
                                         <BacklogTask 
+                                            id = {task.id}
                                             date = {task.date}    
                                             name = {task.name}
                                             role = {task.role}
@@ -94,6 +112,7 @@ export default function ProductBacklog() {
                                             priority = {task.priority}
                                             sprint = {task.sprint}    
                                             status = {task.status}
+                                            taskChanged = {taskChanged}
                                             provided = {provided}
                                             >
                                         </BacklogTask>
