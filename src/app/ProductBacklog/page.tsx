@@ -184,9 +184,9 @@ export default function ProductBacklog() {
                                                     date={task.date}
                                                     name={task.name}
                                                     type={task.type}
-                                                    sprint={task.sprint}
                                                     info={task.info}
                                                     estimate={task.estimate}
+                                                    sprint={task.sprint}
                                                     status={task.status}
                                                     taskChanged={taskChanged}
                                                     provided={provided}
