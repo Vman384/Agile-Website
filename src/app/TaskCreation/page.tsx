@@ -12,8 +12,8 @@ import {
     doc,
 } from "firebase/firestore";
 import { db } from "../../../config/firebaseSetup";
+import Link from "next/link";
 
-// Need: Story/Bug, Tag, Estimate, name, Date
 const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
     const [task, setTask] = useState([]);
     const [newTask, setNewTask] = useState({
@@ -55,6 +55,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                 status: "Task Backlog"
             });
         }
+
     };
 
     return (
@@ -221,6 +222,17 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                             >
                                 SUBMIT
                             </button>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full px-3 mb-6 md:mb-0">
+                            <Link
+                                href = {"/ProductBacklog"}
+                                className="appearance-none block w-full bg-slate-950 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight hover:outline-none hover:bg-white"
+                            >
+                                RETURN 
+                            </Link>
                         </div>
                     </div>
                 </form>

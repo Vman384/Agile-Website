@@ -17,6 +17,7 @@ import {
     doc,
 } from "firebase/firestore";
 import { db } from "../../../config/firebaseSetup";
+import Link from "next/link";
 
 const startingTasks = [
     {
@@ -200,6 +201,11 @@ export default function ProductBacklog() {
                     </Droppable>
                 </DragDropContext>
             </div>
-        </div>
+            <Link href={"/TaskCreation"}>
+            <button className="mt-4 py-2 px-4 bg-gray-800 hover:bg-gray-700 focus:ring-gray-100 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                (+) Add New Task
+            </button>
+        </Link>
+        </div> 
     );
 }
