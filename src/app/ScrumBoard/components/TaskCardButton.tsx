@@ -4,7 +4,8 @@ import { FaTimes } from 'react-icons/fa'
 
 const TaskCardButton: React.FunctionComponent<CardButtonProps> = ({ card }) => {
     return (
-        <h3> <FaTimes style={{color: 'red', cursor: 'pointer'}}/> </h3>
+        <h3 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
+         </h3>
     )
    
 }
