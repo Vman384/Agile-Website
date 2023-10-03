@@ -23,7 +23,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
         tag: "Front End",
         name: "",
         date: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
-        status: "Task Backlog"
+        status: "Backlog"
     });
 
     // Add task to the database 
@@ -52,7 +52,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                 tag: "",
                 name: "",
                 date: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
-                status: "Task Backlog"
+                status: "Backlog"
             });
         }
 

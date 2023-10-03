@@ -19,39 +19,6 @@ import {
 import { db } from "../../../config/firebaseSetup";
 import Link from "next/link";
 
-const startingTasks = [
-    {
-        id: "1",
-        date: "22/04/2023",
-        name: "John",
-        role: "Dev",
-        info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat at mauris vel volutpat. Duis viverra diam turpis, a aliquam justo maximus ac. ",
-        estimate: "2",
-        // sprint: "1",
-        status: "In progress",
-    },
-    {
-        id: "2",
-        date: "23/04/2023",
-        name: "Harry",
-        role: "SM",
-        info: "Donec ac sagittis velit. Sed sit amet rhoncus nisl. Pellentesque posuere ultrices quam ut facilisis. Vivamus sagittis non ligula ut tempor.",
-        estimate: "1",
-        // sprint: "1",
-        status: "Started",
-    },
-    {
-        id: "3",
-        date: "26/04/2023",
-        name: "Josh",
-        role: "PO",
-        info: "Sed maximus maximus diam at facilisis. Sed egestas mauris eu velit blandit venenatis.",
-        estimate: "3",
-        // sprint: "2",
-        status: "Done",
-    },
-];
-
 export default function ProductBacklog() {
     // Read items from the database
     const [taskList, setTaskList] = useState([]);
@@ -65,11 +32,7 @@ export default function ProductBacklog() {
                 tasksArr.push({ ...doc.data(), id: doc.id });
             });
             setTaskList(tasksArr);
-            console.log("printing tasksArr")
-            console.log(tasksArr)
-            console.log("printing taskList")
-
-            console.log(taskList)
+  
             return () => unsubscribe;
         });
     }, []);

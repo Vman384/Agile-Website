@@ -1,0 +1,59 @@
+[
+    {
+      
+      "name" : "Backlog",
+      "items": [
+        {
+        "id": 1,
+        "priority":0,
+        "text": "Task 1",
+        "description": "Lorem ipsum dolor sit amet"
+      }
+        
+      ]
+    },
+    {
+      "name" : "To-Do",
+      "items": [
+        {
+        "id": 2,
+        "text": "Task 2",
+        "description": "Lorem ipsum dolor sit amet"
+      }
+        
+      ]
+    },
+    {
+      "name" : "In Progress",
+      "items": [
+        {
+        "id": 3,
+        "text": "Task 3",
+        "description": "Lorem ipsum dolor sit amet"
+      }
+        
+      ]
+    },
+    {
+      "name" : "Review",
+      "items": [
+        {
+        "id": 4,
+        "text": "Task 4",
+        "description": "Lorem ipsum dolor sit amet"
+      }
+        
+      ]
+    },
+    {
+      "name" : "Done",
+      "items": [
+        {
+        "id": 5,
+        "text": "Task 5",
+        "description": "Lorem ipsum dolor sit amet"
+      }
+        
+      ]
+    }
+  ]
