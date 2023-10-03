@@ -34,31 +34,20 @@ function createGuidId() {
         }
     );
 }
-
-export default function Home() {
-    const [ready, setReady] = useState(false);
-    const [boardData, setBoardData] = useState(BoardData);
-    const [showForm, setShowForm] = useState(false);
-    const [selectedBoard, setSelectedBoard] = useState(0);
-
-    useEffect(() => {
-      if (process.browser) {
-        setReady(true);
-    
-    } 
-      const q = query(collection(db, "tasks"));
+const q = query(collection(db, "tasks"));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
-         let tasksArr: (typeof boardData) = [];
+         let tasksArr: (typeof BoardData) = [];
 
           querySnapshot.forEach((doc: any) => {
               tasksArr.push({ ...doc.data(), id: doc.id });
           });``
           
+          // tech debt quick fix
           for (let i=0; i<tasksArr.length; i++) {
             //console.log(`the current status: ${tasksArr[i].status}`)
-            // console.log(boardData[0].items)
+            // console.log(BoardData[0].items)
             if (tasksArr[i].status == "Backlog") {
-              boardData[0].items.push({
+              BoardData[0].items.push({
                 "id": tasksArr[i].id,
                 "priority": tasksArr[i].estimate,
                 "text": tasksArr[i].type,
@@ -66,52 +55,66 @@ export default function Home() {
               })
 
             // Quick fix to duplicate items (hahahaha we are in so much technical debt i want to die)
-            const ids = boardData[0].items.map(({ id }) => id);
-            boardData[0].items = boardData[0].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+            const ids = BoardData[0].items.map(({ id }) => id);
+            BoardData[0].items = BoardData[0].items.filter(({ id }, index) => !ids.includes(id, index + 1))
 
 
             } else if (tasksArr[i].status == "To-Do") {
-              boardData[1].items.push({
+              BoardData[1].items.push({
                 "id": tasksArr[i].id,
                 "priority": tasksArr[i].estimate,
                 "text": tasksArr[i].type,
                 "description" : tasksArr[i].info,
               })
-              const ids = boardData[1].items.map(({ id }) => id);
-            boardData[1].items = boardData[1].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              const ids = BoardData[1].items.map(({ id }) => id);
+            BoardData[1].items = BoardData[1].items.filter(({ id }, index) => !ids.includes(id, index + 1))
             } else if (tasksArr[i].status == "In Progress") {
-              boardData[2].items.push({
+              BoardData[2].items.push({
                 "id": tasksArr[i].id,
                 "priority": tasksArr[i].estimate,
                 "text": tasksArr[i].type,
                 "description" : tasksArr[i].info,
               })
-              const ids = boardData[2].items.map(({ id }) => id);
-            boardData[2].items = boardData[2].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              const ids = BoardData[2].items.map(({ id }) => id);
+            BoardData[2].items = BoardData[2].items.filter(({ id }, index) => !ids.includes(id, index + 1))
             } else if (tasksArr[i].status == "Review") {
-              boardData[3].items.push({
+              BoardData[3].items.push({
                 "id": tasksArr[i].id,
                 "priority": tasksArr[i].estimate,
                 "text": tasksArr[i].type,
                 "description" : tasksArr[i].info,
               })
-              const ids = boardData[3].items.map(({ id }) => id);
-            boardData[3].items = boardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              const ids = BoardData[3].items.map(({ id }) => id);
+            BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
             } else if (tasksArr[i].status == "Done") {
-              boardData[4].items.push({
+              BoardData[4].items.push({
                 "id": tasksArr[i].id,
                 "priority": tasksArr[i].estimate,
+                
                 "text": tasksArr[i].type,
                 "description" : tasksArr[i].info,
               })
-              const ids = boardData[3].items.map(({ id }) => id);
-            boardData[3].items = boardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              const ids = BoardData[3].items.map(({ id }) => id);
+            BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
             }
           }
-          return () => unsubscribe;
       });
-  }, []);
 
+console.log(BoardData)
+export default function Home() {
+    console.log(BoardData)
+    const [ready, setReady] = useState(false);
+    const [boardData, setBoardData] = useState(BoardData);
+    const [showForm, setShowForm] = useState(false);
+    const [selectedBoard, setSelectedBoard] = useState(0);
+
+
+    useEffect(() => {
+      
+      if (process.browser) {
+        setReady(true);
+    } 
+  }, []);
 
     const onDragEnd = (re) => {
         if (!re.destination) return;
