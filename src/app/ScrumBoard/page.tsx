@@ -2,7 +2,7 @@
 import { Card } from "react-bootstrap";
 import IPageProps from "../../../interfaces/page";
 import TaskCard from "../ScrumBoard/components/TaskCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import BoardData from "./data/board-data.json";
 import {
@@ -35,91 +35,97 @@ function createGuidId() {
     );
 }
 
-async function getData() {
-  const q = query(collection(db, "tasks"));
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          let tasksArr: (typeof BoardData) = [];
+function getData() {
+    const q = query(collection(db, "tasks"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        let tasksArr: typeof BoardData = [];
 
-            querySnapshot.forEach((doc: any) => {
-                tasksArr.push({ ...doc.data(), id: doc.id });
-            });``
-            
-            // tech debt quick fix
-            for (let i=0; i<tasksArr.length; i++) {
-              //console.log(`the current status: ${tasksArr[i].status}`)
-              // console.log(BoardData[0].items)
-              if (tasksArr[i].status == "Backlog") {
-                BoardData[0].items.push({
-                  "id": tasksArr[i].id,
-                  "priority": tasksArr[i].estimate,
-                  "text": tasksArr[i].type,
-                  "description" : tasksArr[i].info,
-                })
-
-              // Quick fix to duplicate items (hahahaha we are in so much technical debt i want to die)
-              const ids = BoardData[0].items.map(({ id }) => id);
-              BoardData[0].items = BoardData[0].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-
-
-              } else if (tasksArr[i].status == "To-Do") {
-                BoardData[1].items.push({
-                  "id": tasksArr[i].id,
-                  "priority": tasksArr[i].estimate,
-                  "text": tasksArr[i].type,
-                  "description" : tasksArr[i].info,
-                })
-                const ids = BoardData[1].items.map(({ id }) => id);
-              BoardData[1].items = BoardData[1].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-              } else if (tasksArr[i].status == "In Progress") {
-                BoardData[2].items.push({
-                  "id": tasksArr[i].id,
-                  "priority": tasksArr[i].estimate,
-                  "text": tasksArr[i].type,
-                  "description" : tasksArr[i].info,
-                })
-                const ids = BoardData[2].items.map(({ id }) => id);
-              BoardData[2].items = BoardData[2].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-              } else if (tasksArr[i].status == "Review") {
-                BoardData[3].items.push({
-                  "id": tasksArr[i].id,
-                  "priority": tasksArr[i].estimate,
-                  "text": tasksArr[i].type,
-                  "description" : tasksArr[i].info,
-                })
-                const ids = BoardData[3].items.map(({ id }) => id);
-              BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-              } else if (tasksArr[i].status == "Done") {
-                BoardData[4].items.push({
-                  "id": tasksArr[i].id,
-                  "priority": tasksArr[i].estimate,
-                  
-                  "text": tasksArr[i].type,
-                  "description" : tasksArr[i].info,
-                })
-                const ids = BoardData[3].items.map(({ id }) => id);
-              BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-              }
-            }
+        querySnapshot.forEach((doc: any) => {
+            tasksArr.push({ ...doc.data(), id: doc.id });
         });
-        return BoardData
+        ``;
 
-      }
+        // tech debt quick fix
+        for (let i = 0; i < tasksArr.length; i++) {
+            //console.log(`the current status: ${tasksArr[i].status}`)
+            // console.log(BoardData[0].items)
+            if (tasksArr[i].status == "Backlog") {
+                BoardData[0].items.push({
+                    id: tasksArr[i].id,
+                    priority: tasksArr[i].estimate,
+                    text: tasksArr[i].type,
+                    description: tasksArr[i].info,
+                });
 
+                // Quick fix to duplicate items (hahahaha we are in so much technical debt i want to die)
+                const ids = BoardData[0].items.map(({ id }) => id);
+                BoardData[0].items = BoardData[0].items.filter(
+                    ({ id }, index) => !ids.includes(id, index + 1)
+                );
+            } else if (tasksArr[i].status == "To-Do") {
+                BoardData[1].items.push({
+                    id: tasksArr[i].id,
+                    priority: tasksArr[i].estimate,
+                    text: tasksArr[i].type,
+                    description: tasksArr[i].info,
+                });
+                const ids = BoardData[1].items.map(({ id }) => id);
+                BoardData[1].items = BoardData[1].items.filter(
+                    ({ id }, index) => !ids.includes(id, index + 1)
+                );
+            } else if (tasksArr[i].status == "In Progress") {
+                BoardData[2].items.push({
+                    id: tasksArr[i].id,
+                    priority: tasksArr[i].estimate,
+                    text: tasksArr[i].type,
+                    description: tasksArr[i].info,
+                });
+                const ids = BoardData[2].items.map(({ id }) => id);
+                BoardData[2].items = BoardData[2].items.filter(
+                    ({ id }, index) => !ids.includes(id, index + 1)
+                );
+            } else if (tasksArr[i].status == "Review") {
+                BoardData[3].items.push({
+                    id: tasksArr[i].id,
+                    priority: tasksArr[i].estimate,
+                    text: tasksArr[i].type,
+                    description: tasksArr[i].info,
+                });
+                const ids = BoardData[3].items.map(({ id }) => id);
+                BoardData[3].items = BoardData[3].items.filter(
+                    ({ id }, index) => !ids.includes(id, index + 1)
+                );
+            } else if (tasksArr[i].status == "Done") {
+                BoardData[4].items.push({
+                    id: tasksArr[i].id,
+                    priority: tasksArr[i].estimate,
 
-export default async function Home() {
+                    text: tasksArr[i].type,
+                    description: tasksArr[i].info,
+                });
+                const ids = BoardData[3].items.map(({ id }) => id);
+                BoardData[3].items = BoardData[3].items.filter(
+                    ({ id }, index) => !ids.includes(id, index + 1)
+                );
+            }
+        }
+    });
+    return BoardData;
+}
+
+export default function Home() {
     const [ready, setReady] = useState(false);
     const [boardData, setBoardData] = useState(BoardData);
     const [showForm, setShowForm] = useState(false);
     const [selectedBoard, setSelectedBoard] = useState(0);
 
     useEffect(() => {
-      
-      if (process.browser) {
-        setReady(true);
-    } 
-  }, []);
-
-  await getData()
+        setBoardData(getData());
+        
+        if (process.browser) {
+            setReady(true);
+        }
+    }, []);
 
     const onDragEnd = (re) => {
         if (!re.destination) return;
