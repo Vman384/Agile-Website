@@ -34,80 +34,83 @@ function createGuidId() {
         }
     );
 }
-const q = query(collection(db, "tasks"));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-         let tasksArr: (typeof BoardData) = [];
 
-          querySnapshot.forEach((doc: any) => {
-              tasksArr.push({ ...doc.data(), id: doc.id });
-          });``
-          
-          // tech debt quick fix
-          for (let i=0; i<tasksArr.length; i++) {
-            //console.log(`the current status: ${tasksArr[i].status}`)
-            // console.log(BoardData[0].items)
-            if (tasksArr[i].status == "Backlog") {
-              BoardData[0].items.push({
-                "id": tasksArr[i].id,
-                "priority": tasksArr[i].estimate,
-                "text": tasksArr[i].type,
-                "description" : tasksArr[i].info,
-              })
+async function getData() {
+  const q = query(collection(db, "tasks"));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          let tasksArr: (typeof BoardData) = [];
 
-            // Quick fix to duplicate items (hahahaha we are in so much technical debt i want to die)
-            const ids = BoardData[0].items.map(({ id }) => id);
-            BoardData[0].items = BoardData[0].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+            querySnapshot.forEach((doc: any) => {
+                tasksArr.push({ ...doc.data(), id: doc.id });
+            });``
+            
+            // tech debt quick fix
+            for (let i=0; i<tasksArr.length; i++) {
+              //console.log(`the current status: ${tasksArr[i].status}`)
+              // console.log(BoardData[0].items)
+              if (tasksArr[i].status == "Backlog") {
+                BoardData[0].items.push({
+                  "id": tasksArr[i].id,
+                  "priority": tasksArr[i].estimate,
+                  "text": tasksArr[i].type,
+                  "description" : tasksArr[i].info,
+                })
+
+              // Quick fix to duplicate items (hahahaha we are in so much technical debt i want to die)
+              const ids = BoardData[0].items.map(({ id }) => id);
+              BoardData[0].items = BoardData[0].items.filter(({ id }, index) => !ids.includes(id, index + 1))
 
 
-            } else if (tasksArr[i].status == "To-Do") {
-              BoardData[1].items.push({
-                "id": tasksArr[i].id,
-                "priority": tasksArr[i].estimate,
-                "text": tasksArr[i].type,
-                "description" : tasksArr[i].info,
-              })
-              const ids = BoardData[1].items.map(({ id }) => id);
-            BoardData[1].items = BoardData[1].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-            } else if (tasksArr[i].status == "In Progress") {
-              BoardData[2].items.push({
-                "id": tasksArr[i].id,
-                "priority": tasksArr[i].estimate,
-                "text": tasksArr[i].type,
-                "description" : tasksArr[i].info,
-              })
-              const ids = BoardData[2].items.map(({ id }) => id);
-            BoardData[2].items = BoardData[2].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-            } else if (tasksArr[i].status == "Review") {
-              BoardData[3].items.push({
-                "id": tasksArr[i].id,
-                "priority": tasksArr[i].estimate,
-                "text": tasksArr[i].type,
-                "description" : tasksArr[i].info,
-              })
-              const ids = BoardData[3].items.map(({ id }) => id);
-            BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
-            } else if (tasksArr[i].status == "Done") {
-              BoardData[4].items.push({
-                "id": tasksArr[i].id,
-                "priority": tasksArr[i].estimate,
-                
-                "text": tasksArr[i].type,
-                "description" : tasksArr[i].info,
-              })
-              const ids = BoardData[3].items.map(({ id }) => id);
-            BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              } else if (tasksArr[i].status == "To-Do") {
+                BoardData[1].items.push({
+                  "id": tasksArr[i].id,
+                  "priority": tasksArr[i].estimate,
+                  "text": tasksArr[i].type,
+                  "description" : tasksArr[i].info,
+                })
+                const ids = BoardData[1].items.map(({ id }) => id);
+              BoardData[1].items = BoardData[1].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              } else if (tasksArr[i].status == "In Progress") {
+                BoardData[2].items.push({
+                  "id": tasksArr[i].id,
+                  "priority": tasksArr[i].estimate,
+                  "text": tasksArr[i].type,
+                  "description" : tasksArr[i].info,
+                })
+                const ids = BoardData[2].items.map(({ id }) => id);
+              BoardData[2].items = BoardData[2].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              } else if (tasksArr[i].status == "Review") {
+                BoardData[3].items.push({
+                  "id": tasksArr[i].id,
+                  "priority": tasksArr[i].estimate,
+                  "text": tasksArr[i].type,
+                  "description" : tasksArr[i].info,
+                })
+                const ids = BoardData[3].items.map(({ id }) => id);
+              BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              } else if (tasksArr[i].status == "Done") {
+                BoardData[4].items.push({
+                  "id": tasksArr[i].id,
+                  "priority": tasksArr[i].estimate,
+                  
+                  "text": tasksArr[i].type,
+                  "description" : tasksArr[i].info,
+                })
+                const ids = BoardData[3].items.map(({ id }) => id);
+              BoardData[3].items = BoardData[3].items.filter(({ id }, index) => !ids.includes(id, index + 1))
+              }
             }
-          }
-      });
+        });
+        return BoardData
 
-console.log(BoardData)
-export default function Home() {
-    console.log(BoardData)
+      }
+
+
+export default async function Home() {
     const [ready, setReady] = useState(false);
     const [boardData, setBoardData] = useState(BoardData);
     const [showForm, setShowForm] = useState(false);
     const [selectedBoard, setSelectedBoard] = useState(0);
-
 
     useEffect(() => {
       
@@ -115,6 +118,8 @@ export default function Home() {
         setReady(true);
     } 
   }, []);
+
+  await getData()
 
     const onDragEnd = (re) => {
         if (!re.destination) return;
@@ -133,31 +138,6 @@ export default function Home() {
             dragItem
         );
         setBoardData(newBoardData);
-    };
-
-    const onTextAreaKeyPress = (e) => {
-        if (e.keyCode === 13) {
-            //Enter
-            const val = e.target.value;
-            if (val.length === 0) {
-                setShowForm(false);
-            } else {
-                const boardId = e.target.attributes["data-id"].value;
-                const item = {
-                    id: createGuidId(),
-                    title: val,
-                    priority: 0,
-                    chat: 0,
-                    attachment: 0,
-                    assignees: [],
-                };
-                let newBoardData = boardData;
-                newBoardData[boardId].items.push(item);
-                setBoardData(newBoardData);
-                setShowForm(false);
-                e.target.value = "";
-            }
-        }
     };
 
     return (
