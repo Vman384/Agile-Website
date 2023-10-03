@@ -4,14 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import Application from './applications';
 import reportWebVitals from './reportWebvitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Application />
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+export default function Home() {
+  return <Application />;
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
