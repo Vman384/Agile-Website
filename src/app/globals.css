@@ -2,28 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add this to your CSS file */
-.columns-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.column {
-  width: 200px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.column-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
