@@ -2,59 +2,38 @@
 import { Card } from "react-bootstrap";
 import IPageProps from "../../../interfaces/page";
 import TaskCard from "../ScrumBoard/components/TaskCard";
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import Columns from "./components/ListTasks";
+import CreateTasks from "./components/CreateTasks";
+import ListTasks from "./components/ListTasks";
+import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 
-const ScrumBoard: React.FunctionComponent<IPageProps> = props => {
 
-    
-   
+
+
+function ScrumBoard() {
+    const [tasks, setTasks] = useState([]);
+
+    console.log("tasks", tasks);
+
+    useEffect(() => {
+        const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        setTasks(savedTasks)
+    }, []);
+
     return (
-        <div>
-            
-            <div className='my-20 flex text-5xl font-extrabold justify-center items-center'>Sunday.com</div>
-            <div className='grid grid-cols-5'>
-                <div className=" grid grid-cols-1 border-r-2 border-slate-300">
-                    <h2 className="text-3xl w-max m-auto">Backlog</h2>
-                    <TaskCard card ={{
-                        text: "Task",
-                        
-                    }}></TaskCard>
-                </div>
-                <div className="grid grid-cols-1 border-r-2 border-slate-300">
-                    <h2 className="text-3xl w-max m-auto">To-Do</h2>
-                    <TaskCard card ={{
-                        text: "Task",
-                        
-                    }}></TaskCard>
-                </div>
-                <div className="grid grid-cols-1 border-r-2 border-slate-300">
-                    <h2 className="text-3xl w-max m-auto">In Progress</h2>
-                    <TaskCard card ={{
-                        text: "Task",
-                        
-                    }}></TaskCard>
-                </div>
-                <div className="grid grid-cols-1 border-r-2 border-slate-300">
-                    <h2 className="text-3xl w-max m-auto">Review</h2>
-                    <TaskCard card ={{
-                        text: "Task",
-                        
-                    }}></TaskCard>
-                </div>
-                <div className="grid grid-cols-1r">
-                    <h2 className="text-3xl w-max m-auto">Done</h2>
-                    <TaskCard card ={{
-                        text: "Task",
-                        
-                    }}></TaskCard>
-                </div>
-            </div>
+        <>
+        <Toaster/>
+        <div className="bg-slate-100 w-screen h-screen flex flex-col items-center pt-3 gap-16">
+            <CreateTasks tasks={tasks} setTasks={setTasks} />
+            <ListTasks tasks={tasks} setTasks={setTasks} />
         </div>
+        </>
     )
+
+
 }
-
-
-
-
 export default ScrumBoard;
 
