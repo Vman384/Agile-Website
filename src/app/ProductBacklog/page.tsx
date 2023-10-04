@@ -1,74 +1,174 @@
-import "../../../styles/product-backlog";
+"use client";
+
+import "../../../styles/product-backlog.css";
+import BacklogTask from "../../../components/ProductBacklog/BacklogTask";
+import { useState } from "react";
+import React, { usestate, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { stat } from "fs";
+import {
+    collection,
+    addDoc,
+    getDocs,
+    querySnapshot,
+    query,
+    onSnapshot,
+    deleteDoc,
+    doc,
+} from "firebase/firestore";
+import { db } from "../../../config/firebaseSetup";
+import Link from "next/link";
 
 export default function ProductBacklog() {
-    const data = [
-        {
-            date: "22/04/2023",
-            name: "John",
-            as_a: "Dev",
-            i_want_to:
-                "be able to move tasks from product backlog to the scrum board",
-            so_that: "we can see what needs to be worked on.",
-            priority: "2",
-            sprint: "1",
-            status: "In progress",
-        },
-        {
-            date: "23/04/2023",
-            name: "Harry",
-            as_a: "SM",
-            i_want_to: "be able to add and remove columns on my scrum board",
-            so_that: "we can update the scrum board.",
-            priority: "1",
-            sprint: "1",
-            status: "Started",
-        },
-        {
-            date: "26/04/2023",
-            name: "Josh",
-            as_a: "PO",
-            i_want_to: "be able to assign one person to a task at a time",
-            so_that: "everyone is working one task at a time",
-            priority: "3",
-            sprint: "2",
-            status: "Done",
-        },
-    ];
+    // Read items from the database
+    const [taskList, setTaskList] = useState([]);
+
+    useEffect(() => {
+        const q = query(collection(db, "tasks"));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+           let tasksArr: (typeof taskList) = [];
+
+            querySnapshot.forEach((doc: any) => {
+                tasksArr.push({ ...doc.data(), id: doc.id });
+            });
+            setTaskList(tasksArr);
+  
+            return () => unsubscribe;
+        });
+    }, []);
+
+    function taskChanged(
+        id: string,
+        date: string,
+        name: string,
+        role: string,
+        info: string,
+        estimate: string,
+        sprint: string,
+        status: string
+    ) {
+        const indexOfTask = taskList.findIndex((task) => task.id === id);
+        if (
+            !(
+                taskList[indexOfTask].id == id &&
+                taskList[indexOfTask].date == date &&
+                taskList[indexOfTask].name == name &&
+                taskList[indexOfTask].role == role &&
+                taskList[indexOfTask].info == info &&
+                taskList[indexOfTask].estimate == estimate &&
+                taskList[indexOfTask].sprint == sprint &&
+                taskList[indexOfTask].status == status
+            )
+        ) {
+            taskList[indexOfTask] = {
+                id: id,
+                date: date,
+                name: name,
+                role: role,
+                info: info,
+                estimate: estimate,
+                sprint: sprint,
+                status: status,
+            };
+            console.log("changed");
+            console.log(taskList);
+        }
+    }
+
     return (
         <div>
             <div className="my-20 flex text-5xl font-extrabold justify-center items-center">
                 Sunday.com
             </div>
-            <div className="App">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Date</th>
-                            <th>Name</th>
-                            <th>As a ...</th>
-                            <th>I want to</th>
-                            <th>So that</th>
-                            <th>Priority</th>
-                            <th>Sprint</th>
-                            <th>Status</th>
-                        </tr>
-                        {data.map((val, key) => {
-                            return (
-                                <tr key={key}>
-                                    <td>{val.date}</td>
-                                    <td>{val.name}</td>
-                                    <td>{val.as_a}</td>
-                                    <td>{val.i_want_to}</td>
-                                    <td>{val.so_that}</td>
-                                    <td>{val.priority}</td>
-                                    <td>{val.sprint}</td>
-                                    <td>{val.status}</td>
-                                </tr>
+            <div>
+                {/* Header Row */}
+                <div className="flex text-center mx-10 h-fit text-2xl justify-center p-6">
+                    <div className="normal-width">Date</div>
+                    <div className="normal-width">Name</div>
+                    <div className="normal-width">Type</div>
+                    <div className="long-width">Info</div>
+                    <div className="normal-width">Estimate</div>
+                    <div className="normal-width">Tag</div>
+                    <div className="normal-width">Status</div>
+                </div>
+                <DragDropContext
+                    onDragEnd={(results) => {
+                        const { source, destination, type } = results;
+
+                        if (!destination) return;
+                        if (source.index == destination.index) return;
+
+                        if (type === "group") {
+                            const reorderedTasks = [...taskList];
+                            const sourceIndex = source.index;
+                            const destinationIndex = destination.index;
+
+                            const [removedTask] = reorderedTasks.splice(
+                                sourceIndex,
+                                1
                             );
-                        })}
-                    </tbody>
-                </table>
+                            reorderedTasks.splice(
+                                destinationIndex,
+                                0,
+                                removedTask
+                            );
+
+                            return setTaskList(reorderedTasks);
+                        }
+                    }}
+                >
+                    <Droppable droppableId="ProductBacklog" type="group">
+                        {(provided) => (
+                            <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {taskList.map(
+                                    (
+                                        task: {
+                                            id: string;
+                                            date: string;
+                                            name: string;
+                                            type: string;
+                                            sprint: string;
+                                            info: string;
+                                            estimate: string;
+                                            status: string;
+                                        },
+                                        index: number
+                                    ) => (
+                                        <Draggable
+                                            draggableId={task.id}
+                                            key={task.id}
+                                            index={index}
+                                        >
+                                            {(provided) => (
+                                                <BacklogTask
+                                                    id={task.id}
+                                                    date={task.date}
+                                                    name={task.name}
+                                                    type={task.type}
+                                                    info={task.info}
+                                                    estimate={task.estimate}
+                                                    sprint={task.sprint}
+                                                    status={task.status}
+                                                    taskChanged={taskChanged}
+                                                    provided={provided}
+                                                ></BacklogTask>
+                                            )}
+                                        </Draggable>
+                                    )
+                                )}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </div>
-        </div>
+            <Link href={"/TaskCreation"}>
+            <button className="mt-4 py-2 px-4 bg-gray-800 hover:bg-gray-700 focus:ring-gray-100 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                (+) Add New Task
+            </button>
+        </Link>
+        </div> 
     );
 }
