@@ -2,7 +2,7 @@
 import { Card } from "react-bootstrap";
 import IPageProps from "../../../interfaces/page";
 import TaskCard from "../ScrumBoard/components/TaskCard";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import BoardData from "./data/board-data.json";
 import {
@@ -25,14 +25,11 @@ import {
 import { db } from "../../../config/firebaseSetup";
 
 function createGuidId() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-        /[xy]/g,
-        function (c) {
-            var r = (Math.random() * 16) | 0,
-                v = c == "x" ? r : (r & 0x3) | 0x8;
-            return v.toString(16);
-        }
-    );
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+        var r = (Math.random() * 16) | 0,
+            v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
 }
 
 function getData() {
@@ -121,7 +118,7 @@ export default function Home() {
 
     useEffect(() => {
         setBoardData(getData());
-        
+
         if (process.browser) {
             setReady(true);
         }
