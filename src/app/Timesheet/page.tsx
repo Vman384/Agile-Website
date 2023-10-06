@@ -1,6 +1,17 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { DayPilot, DayPilotScheduler } from "daypilot-pro-react";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  querySnapshot,
+  query,
+  onSnapshot,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../../../config/firebaseSetup";
 
 const Timesheet = () => {
 
@@ -10,19 +21,20 @@ const Timesheet = () => {
   const [showBusinessOnly, setShowBusinessOnly] = useState(false);
   const [showDailyTotals, setShowDailyTotals] = useState(false);
 
-  const projects = [
+  const name = [
     {id: 1, name: "Vedansh", color: "#38761d"},
     {id: 2, name: "Felix", color: "#0d8ecf"},
     {id: 3, name: "Sineth", color: "#f1c232"},
-    {id: 4, name: "Tam", color: "#f1c232"},
-    {id: 5, name: "Norman", color: "#f1c232"},
-    {id: 6, name: "Tyler", color: "#f1c232"}
+    {id: 4, name: "Tam", color: "#9532a8"},
+    {id: 5, name: "Norman", color: "#a8a432"},
+    {id: 6, name: "Tyler", color: "#1822db"}
 
 
   ];
 
   const [config, setConfig] = useState({
     locale: "en-us",
+    eventOverlap: "visible",
     rowHeaderColumns: [
       {name: "Date"},
       {name: "Day", width: 40}
@@ -37,7 +49,7 @@ const Timesheet = () => {
     onBeforeEventRender: (args) => {
       console.log(args)
       const duration = new DayPilot.Duration(args.data.start, args.data.end);
-      const project = projects.find(p => p.id === args.data.project) ||projects.find(p => p.id === args.data.text.project);
+      const project = name.find(p => p.id === args.data.project) ||name.find(p => p.id === args.data.text.project);
       console.log(project)
       args.data.barColor = project.color;
   
@@ -73,7 +85,6 @@ const Timesheet = () => {
     viewType: "Days",
     startDate: DayPilot.Date.today().firstDayOfMonth(),
     showNonBusiness: !showBusinessOnly,
-    allowEventOverlap: false,
     timeRangeSelectedHandling: "Enabled",
     onTimeRangeSelected: async (args) => {
       const dp = args.control;
@@ -87,12 +98,12 @@ const Timesheet = () => {
             }
           }
         },
-        {name: "Project", id: "project", options: projects}
+        {name: "Name", id: "project", options: name}
       ];
       const data = {
         start: args.start,
         end: args.end,
-        project: projects[0].id,
+        project: name[0].id,
         text: "New task"
       };
       const options = {
