@@ -1,7 +1,7 @@
 import Home from "@/app/page";
 import IRoute from "../interfaces/routes";
 import Login from "../src/app/Login/page";
-import RegisterPage from "../src/app/Register/page";
+import RegisterPage from "../src/app/CreateUser/page";
 
 const routes: IRoute[] = [
     {

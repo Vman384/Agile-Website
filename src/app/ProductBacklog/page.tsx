@@ -32,9 +32,18 @@ export default function ProductBacklog() {
                 tasksArr.push({ ...doc.data(), id: doc.id });
             });
             setTaskList(tasksArr);
+<<<<<<< Updated upstream
   
             return () => unsubscribe;
+=======
+            console.log("printing tasksArr")
+            console.log(tasksArr)
+            console.log("printing taskList")
+
+            console.log(taskList)
+>>>>>>> Stashed changes
         });
+        return () => unsubscribe;
     }, []);
 
     function taskChanged(

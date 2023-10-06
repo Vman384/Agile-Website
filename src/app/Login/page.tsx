@@ -70,8 +70,8 @@ export default function Login() {
                     </Button>
                     <small>
                         <p className="m-1 text-center">
-                            Don't have an account?
-                            <Link href="/Register">Register here.</Link>
+                            Admin Login
+                            <Link href="/AdminLogin">Login.</Link>
                         </p>
                     </small>
                     <ErrorText error={error} />
