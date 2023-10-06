@@ -1,25 +1,16 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { DayPilot, DayPilotScheduler } from "daypilot-pro-react";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  querySnapshot,
-  query,
-  onSnapshot,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, onSnapshot, doc, setDoc, deleteDoc, addDoc, query, orderBy } from "firebase/firestore";
 import { db } from "../../../config/firebaseSetup";
 
 const Timesheet = () => {
-
+  const eventsRef = collection(db, 'timesheet');
   const schedulerRef = React.createRef();
-  const getScheduler = () => schedulerRef.current.control;
 
   const [showBusinessOnly, setShowBusinessOnly] = useState(false);
   const [showDailyTotals, setShowDailyTotals] = useState(false);
+  const [events, setEvents] = useState([]);
 
   const name = [
     {id: 1, name: "Vedansh", color: "#38761d"},
@@ -32,6 +23,26 @@ const Timesheet = () => {
 
   ];
 
+  
+  // Fetch events from Firestore and update the state
+  useEffect(() => {
+    const q = query(eventsRef, orderBy('start')); // You can order by a specific field if needed
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setEvents(data);
+    });
+
+    return () => {
+      // Unsubscribe from the snapshot listener when the component unmounts
+      unsubscribe();
+    };
+  }, [eventsRef]);
+
+
   const [config, setConfig] = useState({
     locale: "en-us",
     eventOverlap: "visible",
@@ -39,18 +50,16 @@ const Timesheet = () => {
       {name: "Date"},
       {name: "Day", width: 40}
     ],
-    onBeforeRowHeaderRender: (args) => {
+    onBeforeRowHeaderRender: (args:any) => {
       args.row.columns[0].horizontalAlignment = "center";
       args.row.columns[1].text = args.row.start.toString("ddd");
       if (args.row.columns[2]) {
         args.row.columns[2].text = args.row.events.totalDuration().toString("h:mm");
       }
     },
-    onBeforeEventRender: (args) => {
-      console.log(args)
+    onBeforeEventRender: (args:any) => {
       const duration = new DayPilot.Duration(args.data.start, args.data.end);
       const project = name.find(p => p.id === args.data.project) ||name.find(p => p.id === args.data.text.project);
-      console.log(project)
       args.data.barColor = project.color;
   
       args.data.html = "";
@@ -86,7 +95,7 @@ const Timesheet = () => {
     startDate: DayPilot.Date.today().firstDayOfMonth(),
     showNonBusiness: !showBusinessOnly,
     timeRangeSelectedHandling: "Enabled",
-    onTimeRangeSelected: async (args) => {
+    onTimeRangeSelected: async (args:any) => {
       const dp = args.control;
       const form = [
         {name: "Text", id: "text"},
@@ -106,17 +115,28 @@ const Timesheet = () => {
         project: name[0].id,
         text: "New task"
       };
+      // const docRef = doc(db, "timesheet", DayPilot.guid()); // Create a new document with a unique ID
+      // await setDoc(docRef, data); // Store the new event data in Firestore    
       const options = {
         locale: "en-us",
       };
       const modal = await DayPilot.Modal.form(form, data, options);
       dp.clearSelection();
       if (modal.canceled) { return; }
+      console.log(args)
+      console.log(DayPilot.guid())
+      console.log(modal.result)
+      const docRef = await addDoc(collection(db, "timesheet"), {
+        start: args.start.value,
+        end: args.end.value,
+        name: DayPilot.guid(),
+        text: modal.result.text,
+        resource: modal.result.project
+    });
       dp.events.add({
         start: args.start,
         end: args.end,
         id: DayPilot.guid(),
-        resource: args.resource,
         text: modal.result
       });
     }
