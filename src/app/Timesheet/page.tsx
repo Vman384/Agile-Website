@@ -34,6 +34,8 @@ const Timesheet = () => {
         ...doc.data(),
       }));
       setEvents(data);
+      const startDate = "2023-10-02";
+      schedulerRef.current.control.update({startDate,events})
     });
 
     return () => {
@@ -50,6 +52,7 @@ const Timesheet = () => {
       {name: "Date"},
       {name: "Day", width: 40}
     ],
+    events: events,
     onBeforeRowHeaderRender: (args:any) => {
       args.row.columns[0].horizontalAlignment = "center";
       args.row.columns[1].text = args.row.start.toString("ddd");
@@ -115,8 +118,6 @@ const Timesheet = () => {
         project: name[0].id,
         text: "New task"
       };
-      // const docRef = doc(db, "timesheet", DayPilot.guid()); // Create a new document with a unique ID
-      // await setDoc(docRef, data); // Store the new event data in Firestore    
       const options = {
         locale: "en-us",
       };
