@@ -35,6 +35,7 @@ const Timesheet = () => {
       }));
       setEvents(data);
       const startDate = "2023-10-02";
+      console.log(events)
       schedulerRef.current.control.update({startDate,events})
     });
 
@@ -62,7 +63,7 @@ const Timesheet = () => {
     },
     onBeforeEventRender: (args:any) => {
       const duration = new DayPilot.Duration(args.data.start, args.data.end);
-      const project = name.find(p => p.id === args.data.project) ||name.find(p => p.id === args.data.text.project);
+      const project = name.find(p => p.id === args.data.project) || name.find(p => p.id === args.data.text.project) || name.find(p => p.id === args.project);
       args.data.barColor = project.color;
   
       args.data.html = "";
@@ -130,9 +131,9 @@ const Timesheet = () => {
       const docRef = await addDoc(collection(db, "timesheet"), {
         start: args.start.value,
         end: args.end.value,
-        name: DayPilot.guid(),
+        project: modal.result.project,
         text: modal.result.text,
-        resource: modal.result.project
+        id: DayPilot.guid()
     });
       dp.events.add({
         start: args.start,
