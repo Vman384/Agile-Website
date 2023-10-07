@@ -2,6 +2,7 @@
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Button, FormGroup, Input } from "reactstrap";
 import AuthContainer from "../../../components/AuthContainer";
@@ -43,7 +44,23 @@ export default function Register() {
     return (
         <div>
             <div className="my-20 flex text-5xl font-extrabold justify-center items-center">
-                Sunday.com
+                <Image
+                    className="hidden dark:block"
+                    priority
+                    src="/named-logo-light-text.png"
+                    height={88}
+                    width={250}
+                    alt="Sunday.com logo"
+                />
+
+                <Image
+                    className="block dark:hidden"
+                    priority
+                    src="/named-logo-dark-text.png"
+                    height={88}
+                    width={250}
+                    alt="Sunday.com logo"
+                />
             </div>
             <div className="flex justify-center block w-fit h-fit mx-auto justify-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
                 <AuthContainer header="Register">
