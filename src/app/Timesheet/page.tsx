@@ -1,16 +1,18 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { DayPilot, DayPilotScheduler } from "daypilot-pro-react";
 import { collection, onSnapshot, doc, setDoc, deleteDoc, addDoc, query, orderBy } from "firebase/firestore";
 import { db } from "../../../config/firebaseSetup";
 
-const Timesheet = () => {
+const Timesheet = React.memo(() => {
   const eventsRef = collection(db, 'timesheet');
   const schedulerRef = React.createRef();
 
   const [showBusinessOnly, setShowBusinessOnly] = useState(false);
   const [showDailyTotals, setShowDailyTotals] = useState(false);
   const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const iRef = useRef(0);
 
   const name = [
     {id: 1, name: "Vedansh", color: "#38761d"},
@@ -24,9 +26,9 @@ const Timesheet = () => {
   ];
 
   
-  // Fetch events from Firestore and update the state
   useEffect(() => {
-    const q = query(eventsRef, orderBy('start')); // You can order by a specific field if needed
+    const eventsRef = collection(db, 'timesheet');
+    const q = query(eventsRef, orderBy('start'));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const data = querySnapshot.docs.map((doc) => ({
@@ -34,16 +36,19 @@ const Timesheet = () => {
         ...doc.data(),
       }));
       setEvents(data);
-      const startDate = "2023-10-02";
-      console.log(events)
-      schedulerRef.current.control.update({startDate,events})
+      setIsLoading(false); // Set loading to false when data arrives
     });
-
+    if (schedulerRef.current && !isLoading) {
+        console.log(events)
+        const startDate = "2023-10-01";
+        schedulerRef.current.control.update({ startDate, events });
+        console.log("updated")
+    }
     return () => {
-      // Unsubscribe from the snapshot listener when the component unmounts
       unsubscribe();
+
     };
-  }, [eventsRef]);
+  }, [isLoading,eventsRef]);
 
 
   const [config, setConfig] = useState({
@@ -174,12 +179,16 @@ const Timesheet = () => {
       <div className={"space"}>
         <label><input type={"checkbox"} onChange={changeSummary} checked={showDailyTotals} /> Show daily totals</label>
       </div>
-      <DayPilotScheduler
-        {...config}
-        ref={schedulerRef}
-      />
+        {events.length === 0 ? (
+        <p>Loading...</p>
+        ) : (
+        <DayPilotScheduler
+          {...config}
+          ref={schedulerRef}
+        />
+      )}
     </div>
   );
-}
+})
 
 export default Timesheet;

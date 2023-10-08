@@ -206,24 +206,6 @@ const Calendar = () => {
         participants: 4,
       },
     ];
-    // useEffect(() => {
-    //     const q = query(eventsRef, orderBy('start')); // You can order by a specific field if needed
-    
-    //     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    //       const data = querySnapshot.docs.map((doc) => ({
-    //         id: doc.id,
-    //         ...doc.data(),
-    //       }));
-    //       setEvents(data);
-    //       console.log(events)
-    //     });
-    
-    //     return () => {
-    //       // Unsubscribe from the snapshot listener when the component unmounts
-    //       unsubscribe();
-    //     };
-    //   }, [eventsRef]);
-
     const startDate = "2023-10-02";
 
     calendarRef.current.control.update({startDate, events});
