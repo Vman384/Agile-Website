@@ -22,14 +22,14 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
         estimate: 0,
         tag: "Front End",
         name: "",
-        date: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
-        status: "Backlog"
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+        status: "Backlog",
     });
 
-    // Add task to the database 
+    // Add task to the database
     const addTask = async (e: any) => {
         e.preventDefault();
-        console.log("adding task")
+        console.log("adding task");
         if (
             newTask.info != "" &&
             newTask.type != "" &&
@@ -43,7 +43,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                 tag: newTask.tag,
                 name: newTask.name,
                 date: newTask.date,
-                status: newTask.status
+                status: newTask.status,
             });
             setNewTask({
                 info: "",
@@ -51,16 +51,15 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                 estimate: 0,
                 tag: "",
                 name: "",
-                date: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
-                status: "Backlog"
+                date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+                status: "Backlog",
             });
         }
-
     };
 
     return (
         <div>
-            <div className="my-10 flex text-5xl font-extrabold justify-center items-center">
+            <div className="my-10 flex text-5xl font-extrabold justify-center items-center text-black dark:text-white">
                 Task Creation
             </div>
             <div className="h-screen flex justify-center">
@@ -68,7 +67,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full px-3">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
                                 for="grid-password"
                             >
                                 User Story
@@ -86,7 +85,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                                 type="text"
                                 placeholder="Task name"
                             />
-                            <p className="text-gray-600 text-xs italic">
+                            <p className="text-gray-600 dark:text-white text-xs italic">
                                 Make sure to follow INVEST criteria!
                             </p>
                         </div>
@@ -94,7 +93,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                     <div className="flex flex-wrap -mx-3 mb-2">
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
                                 for="grid-city"
                             >
                                 User Story or Bug
@@ -127,7 +126,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                         </div>
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
                                 for="grid-state"
                             >
                                 Tag
@@ -166,7 +165,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                         </div>
                         <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
                                 for="grid-zip"
                             >
                                 Estimate
@@ -189,7 +188,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full px-3 mb-6 md:mb-0">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2"
                                 for="grid-first-name"
                             >
                                 Name
@@ -217,7 +216,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                         <div className="w-full px-3 mb-6 md:mb-0">
                             <button
                                 onClick={addTask}
-                                className="appearance-none block w-full bg-slate-950 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight hover:outline-none hover:bg-white"
+                                className="appearance-none block w-full text-center bg-slate-950 dark:bg-slate-200 text-gray-400 border rounded py-3 px-4 mb-3 leading-tight hover:outline-none hover:bg-slate-200 hover:text-slate-800 dark:hover:bg-slate-950 dark:hover:text-white"
                                 type="submit"
                             >
                                 SUBMIT
@@ -228,10 +227,10 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full px-3 mb-6 md:mb-0">
                             <Link
-                                href = {"/ProductBacklog"}
-                                className="appearance-none block w-full bg-slate-950 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight hover:outline-none hover:bg-white"
+                                href={"/ProductBacklog"}
+                                className="appearance-none block w-full text-center bg-slate-950 dark:bg-slate-200 text-gray-400 border rounded py-3 px-4 mb-3 leading-tight hover:outline-none hover:bg-slate-200 hover:text-slate-800 dark:hover:bg-slate-950 dark:hover:text-white"
                             >
-                                RETURN 
+                                RETURN
                             </Link>
                         </div>
                     </div>
