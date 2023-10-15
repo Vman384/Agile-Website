@@ -7,7 +7,7 @@ import Login from "./Login/page";
 import Menu from "./Menu/page";
 import ScrumBoard from "./ScrumBoard/page";
 import ProductBacklog from "./ProductBacklog/page";
-import Timesheet from "./Timesheet/page";
+import Timesheet from "./Timesheet/page2";
 
 export default function Application() {
     const [loading, setLoading] = useState<boolean>(true);

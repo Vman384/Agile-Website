@@ -14,6 +14,12 @@ export default function Menu() {
             description:
                 "This is a small little paragraph about the product backlog and what it does",
         },
+        {
+            id: 2,
+            text: "Time sheet Entry",
+            description:
+                "Enter you hours worked here",
+        },
     ];
 
     return (
