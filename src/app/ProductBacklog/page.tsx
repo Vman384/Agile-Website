@@ -41,7 +41,6 @@ export default function ProductBacklog() {
             console.log("printing taskList")
 
             console.log(taskList)
->>>>>>> Stashed changes
         });
         return () => unsubscribe;
     }, []);

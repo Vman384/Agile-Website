@@ -151,42 +151,17 @@ const Timesheet = React.memo(() => {
     }
   }
 
-  useEffect(() => {
-    const q = query(eventsRef, orderBy('start'));
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setEvents(data);
-      setIsLoading(false); // Set loading to false when data arrives
-    });
-    if (schedulerRef.current) {
-        console.log(events)
-        const startDate = "2023-10-01";
-        schedulerRef.current.control.update({ startDate, events });
-        console.log("updated")
-    }
-    return () => {
-      unsubscribe();
-
-    };
-  }, [isLoading,eventsRef]);
 
   return (
     <div>
       <div className={"space"}>
         <label><input type={"checkbox"} onChange={changeSummary} checked={showDailyTotals} /> Show daily totals</label>
       </div>
-        {events.length === 0 ? (
-        <p>Loading...</p>
-        ) : (
         <DayPilotScheduler
           {...config}
           ref={schedulerRef}
         />
-      )}
     </div>
   );
 })
