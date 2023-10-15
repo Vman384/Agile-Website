@@ -22,7 +22,11 @@ export default function RootLayout({ children }: IAuthRouteProps) {
                     sizes="16x16"
                 />
             </head>
-            <body className={inter.className}>{children}</body>
+            <body
+                className={`bg-white dark:dark:bg-gray-800 ${inter.className}`}
+            >
+                {children}
+            </body>
         </html>
     );
 }

@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../config/firebaseSetup";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProductBacklog() {
     // Read items from the database
@@ -26,14 +27,13 @@ export default function ProductBacklog() {
     useEffect(() => {
         const q = query(collection(db, "tasks"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-           let tasksArr: (typeof taskList) = [];
+            let tasksArr: typeof taskList = [];
 
             querySnapshot.forEach((doc: any) => {
                 tasksArr.push({ ...doc.data(), id: doc.id });
             });
             setTaskList(tasksArr);
-<<<<<<< Updated upstream
-  
+
             return () => unsubscribe;
 =======
             console.log("printing tasksArr")
@@ -86,12 +86,30 @@ export default function ProductBacklog() {
 
     return (
         <div>
-            <div className="my-20 flex text-5xl font-extrabold justify-center items-center">
-                Sunday.com
+            <div className="mt-8 mb-5 justify-center mx-5 flex">
+                <Link href="/Menu" title="Back to Menu">
+                    <Image
+                        className="hidden dark:block"
+                        priority
+                        src="/named-logo-light-text.png"
+                        height={88}
+                        width={250}
+                        alt="Sunday.com logo"
+                    />
+
+                    <Image
+                        className="block dark:hidden"
+                        priority
+                        src="/named-logo-dark-text.png"
+                        height={88}
+                        width={250}
+                        alt="Sunday.com logo"
+                    />
+                </Link>
             </div>
             <div>
                 {/* Header Row */}
-                <div className="flex text-center mx-10 h-fit text-2xl justify-center p-6">
+                <div className="flex text-center mx-10 h-fit text-2xl justify-center p-6 text-black dark:text-white">
                     <div className="normal-width">Date</div>
                     <div className="normal-width">Name</div>
                     <div className="normal-width">Type</div>
@@ -139,9 +157,9 @@ export default function ProductBacklog() {
                                             date: string;
                                             name: string;
                                             type: string;
-                                            sprint: string;
+                                            tag: string;
                                             info: string;
-                                            estimate: string;
+                                            estimate: number;
                                             status: string;
                                         },
                                         index: number
@@ -159,7 +177,7 @@ export default function ProductBacklog() {
                                                     type={task.type}
                                                     info={task.info}
                                                     estimate={task.estimate}
-                                                    sprint={task.sprint}
+                                                    tag={task.tag}
                                                     status={task.status}
                                                     taskChanged={taskChanged}
                                                     provided={provided}
@@ -174,10 +192,10 @@ export default function ProductBacklog() {
                 </DragDropContext>
             </div>
             <Link href={"/TaskCreation"}>
-            <button className="mt-4 py-2 px-4 bg-gray-800 hover:bg-gray-700 focus:ring-gray-100 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
-                (+) Add New Task
-            </button>
-        </Link>
-        </div> 
+                <button className="mx-16 my-4 py-2 px-4 w-11/12 items-center bg-green-500 hover:bg-green-400 focus:ring-green-100 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                    (+) Add New Task
+                </button>
+            </Link>
+        </div>
     );
 }

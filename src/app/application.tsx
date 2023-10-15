@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "reactstrap";
 import { auth } from "../../config/firebaseSetup";
 import logging from "../../config/logging";
 import Landing from "./page";
@@ -23,8 +22,6 @@ export default function Application() {
             setLoading(false);
         });
     }, []);
-
-    if (loading) return <Spinner color="info" />;
 
     return (
         <div>

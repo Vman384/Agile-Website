@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Landing() {
     return (
         <div>
-            <div className="my-20 flex text-5xl font-extrabold justify-center items-center">
+            <div className="my-20 flex justify-center items-center">
                 <Image
                     priority
                     src="/named-logo-dark-text.png"
