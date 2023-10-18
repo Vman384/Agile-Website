@@ -1,0 +1,32 @@
+[
+  {
+    
+    "name" : "Backlog",
+    "items": [
+      
+    ]
+  },
+  {
+    "name" : "To-Do",
+    "items": [
+    ]
+  },
+  {
+    "name" : "In Progress",
+    "items": [
+     
+      
+    ]
+  },
+  {
+    "name" : "Review",
+    "items": [ 
+    ]
+  },
+  {
+    "name" : "Done",
+    "items": [
+    ]
+  }
+]
+

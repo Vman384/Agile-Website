@@ -1,28 +1,61 @@
-"use client"
-import IPageProps from '../../../interfaces/page';
-import Cardlist from './components/Cardlist';
-import Card from './components/Card';
+import Image from "next/image";
+import Link from "next/link";
 
-const Menu: React.FunctionComponent<IPageProps> = props => {
+import CardList from "../../../components/Menu/CardList";
+
+export default function Menu() {
     const cards = [
-        { 
-          id: 1,
-          text: "Scrum Board",
-          description: "This is a small little paragaph about the scrum board and what it does"
+        {
+            id: 1,
+            text: "Scrum Board",
+            description:
+                "This is a small little paragraph about the scrum board and what it does",
         },
         {
-          id: 2,
-          text: "Product Backlog",
-          description: "This is a small little paragaph about the product backlog and what it does"
-        }
-      ];
+            id: 2,
+            text: "Product Backlog",
+            description:
+                "This is a small little paragraph about the product backlog and what it does",
+        },
+        {
+            id: 2,
+            text: "Time sheet Entry",
+            description: "Enter you hours worked here",
+        },
+    ];
 
     return (
-        <div>
-          <div className='my-20 flex text-5xl font-extrabold justify-center items-center'>Sunday.com</div>
-          <Cardlist cards={cards}/>
-        </div>
-    )
-}
+        <div className="flex flex-col justify-center items-center">
+            <div className="flex mt-8 mb-5 justify-center mx-5">
+                <Image
+                    className="hidden dark:block"
+                    priority
+                    src="/named-logo-light-text.png"
+                    height={88}
+                    width={250}
+                    alt="Sunday.com logo"
+                />
 
-export default Menu;
+                <Image
+                    className="block dark:hidden"
+                    priority
+                    src="/named-logo-dark-text.png"
+                    height={88}
+                    width={250}
+                    alt="Sunday.com logo"
+                />
+            </div>
+
+            <div className="flex justify-center mx-4">
+                <CardList cards={cards} />
+            </div>
+
+            <div className="flex mt-8 text-xl justify-center center-items">
+                <Link href="/Guide" className="hover:underline dark:text-white">
+                    User Guide
+                </Link>
+                ❔
+            </div>
+        </div>
+    );
+}

@@ -1,0 +1,14 @@
+.normal-width {
+    width: 8%;
+    text-align: center;
+}
+
+.long-width {
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+
+.green-background {
+    background-color: #86f77c;
+}
