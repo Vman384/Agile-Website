@@ -26,6 +26,7 @@ import {
     doc,
 } from "firebase/firestore";
 import { db } from "../../../config/firebaseSetup";
+import JSConfetti from 'js-confetti'
 
   function createGuidId() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -134,6 +135,29 @@ import { db } from "../../../config/firebaseSetup";
   
     const onDragEnd = (re) => {
       if (!re.destination) return;
+
+      // Code for user empowerment (when a task is dragged to done)
+      if (re.destination.droppableId == 4) {
+        const canvas = document.querySelector("#canvas")
+        const jsConfetti = new JSConfetti();
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+        jsConfetti.addConfetti()
+      }
+
       let newBoardData = boardData;
       var dragItem =
         newBoardData[parseInt(re.source.droppableId)].items[re.source.index];
