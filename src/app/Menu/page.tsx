@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import CardList from "../../../components/Menu/CardList";
 
@@ -19,14 +20,13 @@ export default function Menu() {
         {
             id: 2,
             text: "Time sheet Entry",
-            description:
-                "Enter you hours worked here",
+            description: "Enter you hours worked here",
         },
     ];
 
     return (
-        <div className="flex justify-center items-center">
-            <div className="mt-8 mb-5 justify-center mx-5 flex">
+        <div className="flex flex-col justify-center items-center">
+            <div className="flex mt-8 mb-5 justify-center mx-5">
                 <Image
                     className="hidden dark:block"
                     priority
@@ -45,14 +45,16 @@ export default function Menu() {
                     alt="Sunday.com logo"
                 />
             </div>
-            <div
-                className="flex mx-5"
-                style={{
-                    position: "absolute",
-                    top: "120px",
-                }}
-            >
+
+            <div className="flex justify-center mx-4">
                 <CardList cards={cards} />
+            </div>
+
+            <div className="flex mt-8 text-xl justify-center center-items">
+                <Link href="/Guide" className="hover:underline dark:text-white">
+                    User Guide
+                </Link>
+                ❔
             </div>
         </div>
     );

@@ -9,9 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@daypilot/daypilot-lite-react": "^3.18.0",
     "@firebase/app": "^0.9.18",
-    "@heroicons/react": "^1.0.6",
     "@react-native-firebase/auth": "^18.3.2",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
@@ -23,20 +21,19 @@
     "encoding": "^0.1.13",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
-    "firebase": "^10.3.1",
-    "heroicons-react": "^1.4.1",
-    "next": "^13.5.4",
-    "postcss": "^8.4.31",
+    "firebase": "^10.4.0",
+    "js-confetti": "^0.11.0",
+    "next": "^13.4.19",
+    "postcss": "8.4.28",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.8.0",
     "react-dnd": "^16.0.1",
     "react-dom": "18.2.0",
-    "react-icons": "^4.11.0",
+    "react-router-dom": "^6.15.0",
     "reactstrap": "^9.2.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
-    "uuid": "^9.0.1",
     "web-vitals": "^3.4.0"
   }
 }

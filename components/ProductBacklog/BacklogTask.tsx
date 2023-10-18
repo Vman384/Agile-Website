@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { DraggableProvided } from "react-beautiful-dnd";
 
 export default function BacklogTask({
     id,
@@ -10,7 +9,9 @@ export default function BacklogTask({
     estimate,
     tag,
     status,
+    priority,
     taskChanged,
+    taskRemoved,
     provided,
 }: {
     id: string;
@@ -21,8 +22,10 @@ export default function BacklogTask({
     estimate: number;
     tag: string;
     status: string;
-    taskChanged: Function;
-    provided: DraggableProvided;
+    priority: number;
+    taskChanged: any;
+    taskRemoved: any;
+    provided: any;
 }) {
     const [dateVar, setDateVar] = useState(date);
     const [nameVar, setNameVar] = useState(name);
@@ -31,6 +34,7 @@ export default function BacklogTask({
     const [estimateVar, setEstimateVar] = useState(estimate);
     const [tagVar, setTagVar] = useState(tag);
     const [statusVar, setStatusVar] = useState(status);
+    const [priorityVar, setPriorityVar] = useState(priority);
 
     return (
         <div className="task">
@@ -54,7 +58,8 @@ export default function BacklogTask({
                                 info,
                                 estimate,
                                 tag,
-                                status
+                                status,
+                                priority
                             );
                         }}
                         value={dateVar}
@@ -73,7 +78,8 @@ export default function BacklogTask({
                                 info,
                                 estimate,
                                 tag,
-                                status
+                                status,
+                                priority
                             );
                         }}
                         value={nameVar}
@@ -88,11 +94,12 @@ export default function BacklogTask({
                                 id,
                                 date,
                                 name,
-                                type,
+                                e.target.value,
                                 info,
                                 estimate,
-                                e.target.value,
-                                status
+                                tag,
+                                status,
+                                priority
                             );
                         }}
                         value={typeVar}
@@ -114,7 +121,8 @@ export default function BacklogTask({
                                 e.target.value,
                                 estimate,
                                 tag,
-                                status
+                                status,
+                                priority
                             );
                         }}
                         value={infoVar}
@@ -133,7 +141,8 @@ export default function BacklogTask({
                                 info,
                                 e.target.value,
                                 tag,
-                                status
+                                status,
+                                priority
                             );
                         }}
                         value={estimateVar}
@@ -152,7 +161,8 @@ export default function BacklogTask({
                                 info,
                                 estimate,
                                 e.target.value,
-                                status
+                                status,
+                                priority
                             );
                         }}
                         value={tagVar}
@@ -180,16 +190,45 @@ export default function BacklogTask({
                                 info,
                                 estimate,
                                 tag,
-                                e.target.value
+                                e.target.value,
+                                priority
                             );
                         }}
                         value={statusVar}
                     >
                         <option value="Task Backlog">Task Backlog</option>
                         <option value="In Progress">In Progress</option>
-                        <option value="Awaiting Review">In Review</option>
+                        <option value="Awaiting Review">Awaiting Review</option>
                         <option value="Done">Done</option>
                     </select>
+                    <input
+                        className="normal-width"
+                        type="Number"
+                        placeholder="Priority"
+                        onChange={(e) => {
+                            setPriorityVar(e.target.valueAsNumber);
+                            taskChanged(
+                                id,
+                                date,
+                                name,
+                                type,
+                                info,
+                                estimate,
+                                tag,
+                                status,
+                                e.target.value
+                            );
+                        }}
+                        value={priorityVar}
+                    />
+                    <button
+                        className="remove-width remove-button hover:text-red-500"
+                        onClick={(e) => {
+                            taskRemoved(id);
+                        }}
+                    >
+                        x
+                    </button>
                 </div>
             </div>
         </div>
