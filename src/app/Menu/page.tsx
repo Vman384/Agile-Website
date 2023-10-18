@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import CardList from "../../../components/Menu/CardList";
 
@@ -19,8 +20,7 @@ export default function Menu() {
         {
             id: 2,
             text: "Time sheet Entry",
-            description:
-                "Enter you hours worked here",
+            description: "Enter you hours worked here",
         },
     ];
 
@@ -47,7 +47,14 @@ export default function Menu() {
             </div>
 
             <div className="text-xl">
-                <a href="/Guide" className="no-underline">❔ Guide ❔</a>
+                ❔
+                <Link
+                    href="/Guide"
+                    className="no-underline hover:underline dark:text-white"
+                >
+                    Guide
+                </Link>
+                ❔
             </div>
 
             <div
