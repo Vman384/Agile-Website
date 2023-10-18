@@ -45,6 +45,11 @@ export default function Menu() {
                     alt="Sunday.com logo"
                 />
             </div>
+
+            <div className="text-xl">
+                <a href="/Guide" className="no-underline">❔ Guide ❔</a>
+            </div>
+
             <div
                 className="flex mx-5"
                 style={{
