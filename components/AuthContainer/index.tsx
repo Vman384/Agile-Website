@@ -20,7 +20,7 @@ export default function AuthContainer({
                     lg={{ size: 4, offset: 4 }}
                 >
                     <Card className="mt-5">
-                        <CardHeader className="bg-primary text-white">
+                        <CardHeader className="bg-primary text-black">
                             {header}
                         </CardHeader>
                         <CardBody>{children}</CardBody>

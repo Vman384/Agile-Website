@@ -112,7 +112,11 @@ export default function Guide() {
                         Now enjoy easily planning and current and upcoming
                         projects with your team! ☺
                     </p>
-                    <Link className="mt-2 text-center" href="/Menu">
+                    <Link
+                        className="mt-2 text-center"
+                        title="Back to Menu"
+                        href="/Menu"
+                    >
                         <p className="inline-block hover:underline">
                             <Image
                                 className="float-left mr-3"

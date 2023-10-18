@@ -16,7 +16,7 @@ export default function Menu() {
     ];
 
     return (
-        <div className="flex justify-center items-center">
+        <div className="flex-row justify-center items-center">
             <div className="mt-8 mb-5 justify-center mx-5 flex">
                 <Image
                     className="hidden dark:block"

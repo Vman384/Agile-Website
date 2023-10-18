@@ -2,6 +2,9 @@
 import IPageProps from "../../../interfaces/page";
 import * as React from "react";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 import {
     collection,
     addDoc,
@@ -14,7 +17,9 @@ import {
 import { db } from "../../../config/firebaseSetup";
 import Link from "next/link";
 
-const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
+export default function TaskForm() {
+    const router = useRouter();
+
     const [task, setTask] = useState([]);
     const [newTask, setNewTask] = useState({
         info: "",
@@ -59,9 +64,23 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
 
     return (
         <div>
-            <div className="my-10 flex text-5xl font-extrabold justify-center items-center text-black dark:text-white">
+            <p className="inline-block my-10 flex text-5xl font-extrabold justify-center items-center text-black dark:text-white">
+                <Link
+                    className="mt-2 text-center"
+                    title="Back to Menu"
+                    href="/Menu"
+                >
+                    <Image
+                        className="float-left mr-3"
+                        priority
+                        src="/logo.png"
+                        height={50}
+                        width={50}
+                        alt="Sunday.com unnamed logo"
+                    />
+                </Link>
                 Task Creation
-            </div>
+            </p>
             <div className="h-screen flex justify-center">
                 <form className="w-full max-w-lg">
                     <div className="flex flex-wrap -mx-3 mb-6">
@@ -216,7 +235,7 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
                         <div className="w-full px-3 mb-6 md:mb-0">
                             <button
                                 onClick={addTask}
-                                className="appearance-none block w-full text-center bg-slate-950 dark:bg-slate-200 text-gray-400 border rounded py-3 px-4 mb-3 leading-tight hover:outline-none hover:bg-slate-200 hover:text-slate-800 dark:hover:bg-slate-950 dark:hover:text-white"
+                                className="mt-2 py-2 px-4 bg-green-500 hover:bg-green-400 focus:ring-green-100 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
                                 type="submit"
                             >
                                 SUBMIT
@@ -226,18 +245,15 @@ const TaskForm: React.FunctionComponent<IPageProps> = (props) => {
 
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full px-3 mb-6 md:mb-0">
-                            <Link
-                                href={"/ProductBacklog"}
-                                className="appearance-none block w-full text-center bg-slate-950 dark:bg-slate-200 text-gray-400 border rounded py-3 px-4 mb-3 leading-tight hover:outline-none hover:bg-slate-200 hover:text-slate-800 dark:hover:bg-slate-950 dark:hover:text-white"
-                            >
-                                RETURN
-                            </Link>
+                            <button className="mt-2 py-2 px-4 bg-red-500 hover:bg-red-400 focus:ring-red-100 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                                <Link href="/ProductBacklog">
+                                    Return to Product Backlog
+                                </Link>
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     );
-};
-
-export default TaskForm;
+}
