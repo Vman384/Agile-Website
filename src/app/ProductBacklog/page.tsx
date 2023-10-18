@@ -8,6 +8,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { stat } from "fs";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
     collection,
     addDoc,
@@ -26,6 +27,7 @@ import { Tag } from "reactstrap";
 
 export default function ProductBacklog() {
     // Read items from the database
+    const router = useRouter();
     const [taskList, setTaskList] = useState([]);
     const forceUpdate = useCallback(
         (taskListArg: any) => setTaskList(taskListArg),
@@ -174,7 +176,7 @@ export default function ProductBacklog() {
             </div>
             <div>
                 {/* Header Row */}
-                <div className="flex text-center mx-10 h-fit text-2xl justify-center p-6">
+                <div className="flex text-center mx-10 h-fit text-xl justify-center p-6">
                     <div className="normal-width dark:text-white">Date</div>
                     <div className="normal-width dark:text-white">Name</div>
                     <div className="normal-width dark:text-white">Type</div>
@@ -182,8 +184,14 @@ export default function ProductBacklog() {
                     <div className="normal-width dark:text-white">Estimate</div>
                     <div className="normal-width dark:text-white">Tag</div>
                     <div className="normal-width dark:text-white">Status</div>
-                    <div className="priority dark:text-white">
-                        <button onClick={sortByPriority}>↕</button> Priority
+                    <div className="priority normal-width dark:text-white">
+                        ↕&nbsp;
+                        <button
+                            className="hover:underline"
+                            onClick={sortByPriority}
+                        >
+                            Priority
+                        </button>
                     </div>
                 </div>
                 <DragDropContext
@@ -262,11 +270,15 @@ export default function ProductBacklog() {
                     </Droppable>
                 </DragDropContext>
             </div>
-            <Link href={"/TaskCreation"}>
-                <button className="mt-4 py-2 px-4 bg-gray-800 hover:bg-gray-700 focus:ring-gray-100 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+            <div className="flex mx-5 my-4 justify-center">
+                <button
+                    onClick={() => router.push("/TaskCreation")}
+                    title="Add New Task"
+                    className="mx-16 px-4 py-2 w-full items-center bg-green-500 hover:bg-green-400 focus:ring-green-100 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                >
                     (+) Add New Task
                 </button>
-            </Link>
+            </div>
         </div>
     );
 }

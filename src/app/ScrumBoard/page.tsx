@@ -235,7 +235,7 @@ export default function Home() {
                 boardData[3].items.length +
                 +boardData[4].items.length ==
             0 ? (
-                <button className="dark:white-text" onClick={forceUpdate}>
+                <button className="dark:text-white" onClick={forceUpdate}>
                     See Scrum Board!
                 </button>
             ) : (
@@ -312,59 +312,4 @@ export default function Home() {
             )}
         </div>
     );
-}
-
-{
-    /* <DragDropContext onDragEnd={onDragEnd}>
-              <div className="grid grid-cols-5 gap-5 my-5">
-                {boardData.map((board, bIndex) => {
-                  return (
-                    <div key={board.name}>
-                      <Droppable droppableId={bIndex.toString()}>
-                        {(provided, snapshot) => (
-                          <div
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                          >
-                            <div
-                              className={`bg-gray-100 rounded-md shadow-md
-                              flex flex-col relative overflow-hidden
-                              ${snapshot.isDraggingOver && "bg-gray-100"}`}
-                            >
-                              <span
-                                className="w-full h-1 bg-gradient-to-r from-gray-800 to-gray-400
-                            absolute inset-x-0 top-0"
-                              ></span>
-                              <h4 className=" p-3 flex justify-between items-center mb-2">
-                                <span className="text-2xl text-gray-600">
-                                  {board.name}
-                                </span>
-                                <h3 className="w-5 h-5 text-gray-500" >...</h3>
-
-                              </h4>
-  
-                              <div className="overflow-y-auto overflow-x-hidden h-auto"
-                              style={{maxHeight:'calc(100vh - 290px)'}}>
-                                {board.items.length > 0 &&
-                                  board.items.map((item, iIndex) => {
-                                    return (
-                                      <TaskCard
-                                        key={item.id}
-                                        data={item}
-                                        index={iIndex}
-                                        className="m-3"
-                                      />
-                                    );
-                                  })}
-                                {provided.placeholder}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </Droppable>
-                    </div>
-                  );
-                })}
-              </div>
-            </DragDropContext> */
 }
