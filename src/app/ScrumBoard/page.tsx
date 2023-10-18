@@ -235,7 +235,9 @@ export default function Home() {
                 boardData[3].items.length +
                 +boardData[4].items.length ==
             0 ? (
-                <button onClick={forceUpdate}>See Scrum Board!</button>
+                <button className="dark:white-text" onClick={forceUpdate}>
+                    See Scrum Board!
+                </button>
             ) : (
                 <DragDropContext onDragEnd={onDragEnd}>
                     <div className="grid grid-cols-5 gap-5 my-5">
