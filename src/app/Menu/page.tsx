@@ -25,8 +25,8 @@ export default function Menu() {
     ];
 
     return (
-        <div className="flex justify-center items-center">
-            <div className="mt-8 mb-5 justify-center mx-5 flex">
+        <div className="flex flex-col justify-center items-center">
+            <div className="flex mt-8 mb-5 justify-center mx-5">
                 <Image
                     className="hidden dark:block"
                     priority
@@ -46,25 +46,15 @@ export default function Menu() {
                 />
             </div>
 
-            <div className="text-xl">
-                ❔
-                <Link
-                    href="/Guide"
-                    className="no-underline hover:underline dark:text-white"
-                >
-                    Guide
-                </Link>
-                ❔
+            <div className="flex justify-center mx-4">
+                <CardList cards={cards} />
             </div>
 
-            <div
-                className="flex mx-5"
-                style={{
-                    position: "absolute",
-                    top: "120px",
-                }}
-            >
-                <CardList cards={cards} />
+            <div className="flex mt-8 text-xl justify-center center-items">
+                <Link href="/Guide" className="hover:underline dark:text-white">
+                    User Guide
+                </Link>
+                ❔
             </div>
         </div>
     );
