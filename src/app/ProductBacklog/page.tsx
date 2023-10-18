@@ -35,12 +35,11 @@ export default function ProductBacklog() {
             setTaskList(tasksArr);
 
             return () => unsubscribe;
-=======
-            console.log("printing tasksArr")
-            console.log(tasksArr)
-            console.log("printing taskList")
+            console.log("printing tasksArr");
+            console.log(tasksArr);
+            console.log("printing taskList");
 
-            console.log(taskList)
+            console.log(taskList);
         });
         return () => unsubscribe;
     }, []);
